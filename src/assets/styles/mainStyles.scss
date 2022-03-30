@@ -1,0 +1,424 @@
+@import './mixins.scss';
+@import './css-reset.scss';
+@import url('../fonts/Nunito/stylesheet.scss');
+@import '~sweetalert2/src/sweetalert2.scss';
+
+body{
+    background: #E5E5E5;
+}
+*{
+    box-sizing: border-box;
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+}
+.container{
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 16px;
+    margin: 0 auto;
+    @media screen and (max-width: 1024px){
+        max-width: 934px;
+    }
+}
+.link-btn{
+    background: #F4E041;
+    border-radius: 80px;
+    width: 100px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 16px;
+    transition: .3s;
+    &.disabled{
+        background: #B4B4B4;
+        pointer-events: none;
+        color: rgba(255, 255, 255, 0.87);
+        transition: .3s;
+    }
+}
+.my-custom-checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    input[type="radio"]{
+        position: absolute;
+        z-index: -99999;
+        opacity: 0;
+    }
+    span{
+        display: flex;
+        align-items: center;
+        position: relative;
+        &::before{
+            content: '';
+            width: 20px;
+            height: 20px;
+            display: flex;
+            border: 1px solid #00BDD3;
+            border-radius: 50%;
+            margin-right: 12px;   
+        }
+        &::after{
+            content: '';
+            display: flex;
+            width: 10px;
+            height: 10px;
+            background: #00BDD3;
+            border-radius: 50%;
+            position: absolute;
+            margin-left: 6px;
+            opacity: 0;
+        }
+    }
+    input[type="radio"]:checked + span{
+        &::after{
+            opacity: 1;
+        }
+    }
+}
+.preloader{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background: rgba(255, 255, 255, 0.5);
+}
+// Header
+header{
+    width: 100%;
+    &:before{
+        content: '';
+        display: flex;
+        width: 100%;
+        background: #161616;
+        height: 60px;
+    }
+    .header{
+        width: 100%;
+        height: 60px;
+        background: #fff;
+        display: flex;
+    }
+    .container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .logo{
+        margin-right: auto;
+    }
+    .link-btn{
+        
+        &:nth-child(2){
+            margin-left: auto;
+            margin-right: 10px;
+        }
+    }
+}
+// Блок с главным баннером
+.main-banner{
+    position: relative;
+    width: 100%;
+    max-width: 1170px;
+    margin: 0 auto;
+    height: 650px;
+    // background: url('../banner.jpg') center no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @media screen and (max-width: 768px){
+        height: 500px;
+    }
+   
+    .text-block{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+        &>*{
+            max-width: 380px;
+            text-align: center;
+            @media screen and (max-width: 480px){
+                max-width: 328px;
+            }
+        }
+        .main-title{
+            font-family: 'Nunito';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 40px;
+            line-height: 40px;
+            padding-bottom: 21px;
+            color: #fff;
+        }
+        p{
+            color: #fff;
+            padding-bottom: 32px;
+        }
+    }
+}
+// Блок с пользователяи
+.card-block{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 140px;
+    .card-block__title{
+        color: rgba(0, 0, 0, 0.87);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 40px;
+        padding-bottom: 50px;
+        @media screen and (max-width: 480px){
+            text-align: center;
+        }
+    }
+    .grid-wrapper{
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 370px));
+        justify-content: space-between;
+        row-gap: 29px;
+        column-gap: 29px;
+        @media screen and (max-width: 991px){
+            grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+            row-gap: 16px;
+            column-gap: 16px;
+            justify-content: center;
+        }
+        @media screen and (max-width: 768px){
+            grid-template-columns: repeat(auto-fit, minmax(344px, 344px));
+        }
+        @media screen and (max-width: 480px){
+            grid-template-columns: repeat(auto-fit, minmax(328px, 344px));
+        }
+
+    }
+    .card{
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .user-img{
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            img{
+                width: 100%;
+                height: 100%;
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+        p{
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            &:not(:last-child){
+                margin-bottom: 20px;
+            }
+        }
+
+    }
+    .button-block{
+        width: 100%;
+        height: 34px;
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        .link-btn{
+            width: 120px;
+        }
+
+    }
+}
+//Форма
+.submit-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 140px;
+    padding-bottom: 100px;
+    .submit-form__title{
+        color: rgba(0, 0, 0, 0.87);
+        font-style: normal;
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 40px;
+        padding-bottom: 50px;
+        @media screen and (max-width: 480px){
+            text-align: center;
+        }
+    }
+    label{
+        position: relative;
+        max-width: 380px;
+        width: 100%;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 50px;
+        &:hover{
+            cursor: pointer;
+        }
+        input{
+            width: 100%;
+            height: 100%;
+            border: 1px solid #D0CFCF;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: relative;
+            background: none;
+            &.error{
+                border-color: #CB3D40;
+            }
+            &.error + .placeholder{
+                color: #CB3D40;
+            }
+            
+        }
+        .placeholder{
+            position: absolute;
+            left: 16px;
+            transition: .3s;
+            top: 16px;
+            color: #7E7E7E;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 26px;
+            background-color: inherit;
+            background: #E5E5E5;
+            padding: 0 4px;
+        }
+        input:focus + .placeholder{
+            top: -13px;
+            font-size: 12px;
+            transition: .3s;
+        }
+        input:not(:empty) + .placeholder{
+            top: -13px;
+            font-size: 12px;
+            transition: .3s;
+        }
+        .placeholder.noEmpty{
+            top: -13px;
+            font-size: 12px;
+            transition: .3s;
+        }
+        span.error{
+            position: absolute;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 14px;
+            color: #CB3D40;
+            bottom: -16px;
+            left: 14px;
+        }
+
+    }
+    .label-phone{
+        margin-bottom: 43px;
+    }
+    .checkbox-block{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        max-width: 380px;
+    }
+    .checkbox-block__title{
+        color: rgba(0, 0, 0, 0.87);
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 26px;
+        padding-bottom: 11px;
+    }
+    .my-custom-checkbox{
+        &:not(:last-child){
+            margin-bottom: 7px;
+        }
+        &:last-child{
+            margin-bottom: 47px;
+        }
+    }
+    .file-input{
+        width: 100%;
+        height: 54px;
+        border: 1px solid #D0CFCF;
+        border-radius: 4px;
+        display: flex;
+        margin-bottom: 50px;
+        position: relative;
+        input[type="file"]{
+            position: absolute;
+            z-index: -99999;
+            opacity: 0;
+        }
+        .file-input__button{
+            width: 83px;
+            min-width: 83px;
+            height: calc(100% + 2px);
+            margin-top: 0px;
+            border: 1px solid black;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: -1px;
+        }
+        .file-input__text{
+            flex-grow: 1;
+            padding: 0 16px;
+            color: #7E7E7E;
+        }
+        &.error{
+            border-color: #CB3D40;
+            .file-input__button,
+            .file-input__text{
+                border-color: #CB3D40;
+                color: #CB3D40;
+            }
+        }
+        span.error{
+            position: absolute;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 14px;
+            color: #CB3D40;
+            bottom: -16px;
+            left: 14px;
+        }
+    }
+    .link-btn{
+        border: none;
+        outline: none;
+    }
+}
