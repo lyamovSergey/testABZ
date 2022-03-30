@@ -20,7 +20,7 @@
     <div class="button-block">
       <a
         href="javascript:;"
-        v-show="nextPage"
+        v-show="showSubmitButton"
         class="link-btn"
         @click.prevent="showMore()"
         >Show more</a
@@ -36,6 +36,8 @@ export default {
     return {
       users: [],
       nextPage: "",
+      total_users: '',
+      showSubmitButton: true
     };
   },
   methods: {
@@ -43,6 +45,11 @@ export default {
       this.$store.dispatch("GET_USERS_LIST", this.nextPage).then((resp) => {
         this.nextPage = resp.data.links.next_url;
         this.users.push(...resp.data.users);
+        this.total_users = resp.data.total_users;
+        // Спрятать кнопку
+        if(this.total_users <= this.users.length){
+          this.showSubmitButton = false;
+        }
       });
     },
     startComponent() {
